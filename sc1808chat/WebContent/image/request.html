@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>request.html</title>
+
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="this is my page">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+		<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+		<Style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.requestbig {
+	margin: 30px;
+	width: 597px;
+	height: 477px;
+	box-shadow: 3px 3px 5px #bbb, -3px -3px 5px #bbb, 3px -3px 5px #bbb,
+		-3px 3px 5px #bbb;
+}
+
+.requestbig .h1 {
+	position: relative;
+	width: 100%;
+	height: 33px;
+	background: url(image/head.png);
+}
+
+.requestbig .close {
+	width: 30px;
+	height: 30px;
+	font-size: 30px;
+	text-align: center;
+	line-height: 30px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	color: white;
+	font-weight: bold;
+}
+
+.requestbig .h2 {
+	width: 100%;
+	height: 400px;
+	overflow-y:scroll;
+	background-color:rgb(218,235,249);
+}
+
+/*滚动条样式*/
+.h2::-webkit-scrollbar { /*滚动条整体样式*/
+	width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
+	height: 6px;
+}
+
+.h2::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+	border-radius: 5px;
+	background: rgb(204, 204, 204);
+}
+
+.h2:hover::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+	border-radius: 5px;
+	background: rgb(137, 137, 137);
+}
+
+.h2::-webkit-scrollbar-track { /*滚动条里面轨道*/
+	border-radius: 0;
+	background: rgb(218,235,249);
+}
+
+.h3{
+width:100%;
+height:44px;
+background:rgb(219,228,240);
+}
+.h2>ul{
+	width:552px;
+	height:auto;
+	float:left;
+	margin-left:20px;
+	
+}
+.h2>ul>li{
+	width:100%;
+	height:85px;
+	border:1px solid #ccc;
+	list-style:none;
+	background:rgb(235,242,248);
+	margin-top:20px;
+}
+.touxiang{
+	width:60px;
+	height:60px;
+	border-radius:50%;
+	margin-top:12px;
+	margin-left:14px;
+	float:left;
+}
+.info{
+	float:left;
+	width:450px;
+	height:60px;
+	margin-top:12px;
+	margin-left:8px;
+	font-size:10px;
+	font-family:'微软雅黑';
+	line-height:18px;
+	position:relative;
+}
+.messagebox{
+	position:absolute;
+	width:160px;height:25px;
+	right:-8px;
+	top:15px;
+	text-align:right;
+	color:rgb(118,118,118);
+}
+.username{
+	font-size:14px;
+	font-weight:bold;
+}
+.rbtn{
+	width:70px;height:25px;
+	border:1px solid rgb(160,160,160);
+	border-radius:3px;
+	background:rgb(244,244,244);
+	font-size:12px;
+}
+.rbtn:hover{
+	background:rgb(199,236,252);
+}
+</Style>
+	</head>
+
+	<body>
+		<div class="requestbig">
+			<div class="h1">
+				<div class="close"></div>
+			</div>
+			<!-- 吗的 -->
+			<div class="h2">
+				<ul>
+					<li>
+						<img src="image/timg.jpg" class="touxiang"/>	
+						<div class="info">
+							<span class="username">哇咔咔</span><br/>
+							<span>男&nbsp;20岁</span><br/>
+							<span><font color="gray">附加消息 ：</font>老师，你好</span>
+							<div class="messagebox">已同意</div>
+						</div>
+					</li>
+					
+					<li>
+						<img src="image/timg.jpg" class="touxiang"/>	
+						<div class="info">
+							<span class="username">哇咔咔</span><br/>
+							<span>男&nbsp;20岁</span><br/>
+							<span><font color="gray">附加消息 ：</font>老师，你好</span>
+							<div class="messagebox">已同意</div>
+						</div>
+					</li>
+					<li>
+						<img src="image/timg.jpg" class="touxiang"/>	
+						<div class="info">
+							<span class="username">哇咔咔</span><br/>
+							<span>男&nbsp;20岁</span><br/>
+							<span><font color="gray">附加消息 ：</font>老师，你好</span>
+							<div class="messagebox">已同意</div>
+						</div>
+					</li>
+					<li>
+						<img src="image/timg.jpg" class="touxiang"/>	
+						<div class="info">
+							<span class="username">哇咔咔</span><br/>
+							<span>男&nbsp;20岁</span><br/>
+							<span><font color="gray">附加消息 ：</font>老师，你好</span>
+							<div class="messagebox">已同意</div>
+						</div>
+					</li>
+					<li>
+						<img src="image/timg.jpg" class="touxiang"/>	
+						<div class="info">
+							<span class="username">哇咔咔</span><br/>
+							<span>男&nbsp;20岁</span><br/>
+							<span><font color="gray">附加消息 ：</font>老师，你好</span>
+							<div class="messagebox">已同意</div>
+						</div>
+					</li>
+					
+					<li>
+						<img src="image/search_icon.png" class="touxiang"/>	
+						<div class="info">
+							<span class="username">老王的拓扑学</span><br/>
+							<span>女&nbsp;20岁</span><br/>
+							<span><font color="gray">附加消息 ：</font>哈喽，帅哥，快来玩啊</span>
+							<div class="messagebox">等到验证</div>
+						</div>
+					</li>
+					
+					<li>
+						<img src="image/search_icon.png" class="touxiang"/>	
+						<div class="info">
+							<span class="username">老王的拓扑学</span><br/>
+							<span>女&nbsp;20岁</span><br/>
+							<span><font color="gray">附加消息 ：</font>哈喽，帅哥，快来玩啊</span>
+							<div class="messagebox">
+								<input type="button" class="rbtn" value="同意"/>
+								<input type="button" class="rbtn" value="拒绝"/>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="h3">
+				
+			</div>
+
+		</div>
+	</body>
+</html>

@@ -1,0 +1,76 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" 
+	content="text/html; charset=utf-8" />
+<title>添加好友</title>
+<link rel="stylesheet" href="css/search.css"/>
+<script src="js/jquery-1.6.1.js"></script>
+<script src="js/search.js"></script>
+</head>
+
+<body>
+	<div class="big">
+    	<span class="title">查找</span>
+        <span class="close" onclick="closeBig()">×</span>
+        
+        <!--搜索面板-->
+        <div class="search">
+        	<input class="search_text" placeholder="请输入账户号码/昵称进行查找" onkeyup="init(this.value)"/>
+        </div>
+        <div class="head_title">
+        	列表
+        </div>
+        
+    	<ul class="search_panel">
+        	
+
+        </ul>
+        
+    </div>
+
+	<!-- 发送消息窗口 -->
+	<div class="request_panel">
+		<div class="toolbar">
+			<span>李老头 -添加好友</span>
+			<span onclick="closeRequest()">✖</span>
+		</div>
+		<div class="panel2">
+			<!-- 左边个人信息 -->
+			<div class="left">
+				<img class="userimg" src="image/timg.jpg"/>
+				<p class="p1">
+					<span>老王</span><br/>
+					<span style="font-weight:100;">201142007</span>
+				</p>
+				<p class="p2">
+					<span>性别:男</span><br/>
+					<span>年龄:85</span><br/>
+				</p>
+			</div>
+			<div class="right">
+			
+			<form id="myform">
+				<span>请输入附加信息:</span>
+				<textarea name="message" class="fjinfo"  ></textarea>
+				<input type="hidden" value="" name="beid"/>
+				<span style="margin-left:20px;">分&nbsp;组:</span>
+				<br/>
+				<select name="groupid" class="groupsel" style="margin-left:20px;">
+					
+				</select>
+			</form>
+			
+			</div>
+		</div>
+		<!-- dixia -->
+		<div class="panel_bottom">
+			<div onclick="sendRequest()">请求</div>
+			<div onclick="closeRequest()">取消</div>
+		</div>
+		
+	</div>
+	<input id="recid" type="hidden"/>
+</body>
+</html>

@@ -1,0 +1,184 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/index.css" />
+<script src="js/jquery-1.6.1.js"></script>
+<script src="js/index.js"></script>
+<script>
+	var user;//全局变量
+	$(function() {
+		//初始化页面加载所有的分组信息
+		init();
+	});
+	//加载所有分组的方法
+	function init(){
+		$.post("GroupServlet", {
+			method : "allGroup"
+		}, function(data) {
+			var result = $.parseJSON(data);
+			user = result.user;//还有这句
+			var groupList = result.groupList;
+			$(".headimg").attr("src", user.img);
+			$("h4").html(user.userName);
+			$(".qianming").html(user.sign);
+			//清空
+			$(".friend_group").empty();
+			var str = "";
+			$.each(groupList, function(index, g) {
+				str += "<li>";
+				str += "<span  onclick='getGroupFriend(" + g.id + ",this)'>"
+						+ g.gname + "&nbsp;&nbsp;" + g.zxcount + "/" + g.count
+						+ "</span>";
+				str += "</li>";
+			});
+			$(".friend_group").append(str);
+		});
+
+	}
+	
+	//根据分组得到这个组的所有好友列表
+	function getGroupFriend(gid, groupli) {
+		$.post("UserServlet", {
+			method : "queryGroupFirend",
+			groupId : gid
+		}, function(data) {
+			var userList = $.parseJSON(data).userList;
+			
+			var str = "<ul>";
+			$.each(userList, function(index, u) {
+				str += "<li onclick='startChat("+user.id+","+u.id+")'>";
+				if (u.flag == 1) {
+					str += "<img src='"+u.img+"' class='friendimg'/>";
+				} else {
+					str += "<img src='"+u.img+"' class='imggray'/>";
+				}
+				str += "<div>";
+				str += "<span style='color:red;'>" + u.userName
+						+ "</span><br/>";
+				str += "<span style='color:rgb(127,127,127)'>" + u.sign
+						+ "</span>";
+				str += "</div></li>";
+			});
+			str += "</ul>";
+			if ($(groupli).parent().find("ul").css("display") == "block") {
+				$(groupli).parent()
+						.css("backgroundImage", "url(image/ysj.png)").show()
+						.append(str);
+				$(groupli).parent().find("ul").hide().remove();
+
+			} else {
+				$(groupli).parent()
+						.css("backgroundImage", "url(image/xsj.png)").show()
+						.append(str);
+				$(groupli).parent().find("ul").show();
+			}
+		});
+	}
+	//打开聊天页面
+	function startChat(sendId,recId){
+		location.href="liaotian.html?sendId="+sendId+"&recId="+recId+"&touxiang="+user.img;
+	}
+</script>
+
+<style>
+</style>
+
+</head>
+<body>
+	<div class="left">
+		<div class="person_info">
+			<img src="upload/headimg/1.jpg" class="headimg" />
+			<div>
+				<h4>big dog zi</h4>
+				<span class="qianming">帅气如我</span>
+				<div style="margin-top: 5px; position: relative;">
+					<img src="image/addfa.png" onclick="add()" class="addfd" /> <img
+						src="image/tip1.png" onclick="requestlist()" id="tishi"
+						style="margin-left: 20px;" class="addfd" /> <img
+						src="image/message1.png" id="xiaoxi" style="margin-left: 20px;"
+						class="addfd" />
+				</div>
+			</div>
+		</div>
+		<!-- 个人信息结束 -->
+		<div class="user_search" style="position: relative;">
+			<input class="search_text" 
+			onkeyup="searchFriend(this.value)" value="搜索" />
+			<div class="close_search">✖</div>
+		</div>
+		<script>
+			function searchFriend(val){
+				if(val==""){
+					init();
+				}else{
+				$.post("UserServlet",{
+					method:"queryFriend",
+					keyword:val
+				},
+				function(data){
+					var userList = $.parseJSON(data).userList;
+					var str = "<li><ul>";
+					$.each(userList, function(index, u) {
+						str += "<li>";
+						if (u.flag == 1) {
+							str += "<img src='"+u.img+"' class='friendimg'/>";
+						} else {
+							str += "<img src='"+u.img+"' class='imggray'/>";
+						}
+						str += "<div>";
+						str += "<span style='color:red;'>" + u.userName
+								+ "</span><br/>";
+						str += "<span style='color:rgb(127,127,127)'>" + u.sign
+								+ "</span>";
+						str += "</div></li>";
+					});
+					str += "</ul></li>";
+					$(".friend_group").empty().append(str);
+					$(".friend_group ul").show();
+				});
+				}
+			}
+		
+		</script>
+		<!-- 搜索结束 -->
+		<div class="head3">
+			<div></div>
+			<div></div>
+		</div>
+		<!-- tab结束 -->
+		<div class="friendlist">
+			<ul class="friend_group">
+				 <li>
+					<span>我的好友&nbsp;&nbsp;5/102</span>
+					<ul style="display:block">
+						<li>
+							<img src="upload/headimg/1.jpg" class="friendimg"/>
+							<div>
+								<span style="color:red;">李狗蛋</span><br/>
+								<span style="color:rgb(127,127,127)">冬天最开心的就是我在被子里asdasdsada哈哈哈的事发生的佛挡杀佛斯蒂芬森的第三方</span>
+							</div>
+						</li>
+                        <li>
+							<img src="upload/headimg/1.jpg" class="imggray"/>
+							<div>
+								<span style="color:red;">李狗蛋</span><br/>
+								<span style="color:rgb(127,127,127)">冬天最开心的就是我在被子里asdasdsada哈哈哈的事发生的佛挡杀佛斯蒂芬森的第三方</span>
+							</div>
+						</li>
+					</ul>
+				</li> 
+
+			</ul>
+		</div>
+	</div>
+	<div class="right" style="width:60%;">
+		<iframe name="myframe" scrolling="no" id="myframe" frameborder="0"
+			src="" style="width: 100%; height: 100%;"> </iframe>
+	</div>
+
+	</script>
+</body>
+</html>

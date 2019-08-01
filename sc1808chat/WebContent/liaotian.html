@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/liaotian.css"/>
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+<script  src="js/jquery-3.2.1.min.js"></script>
+<script  src="js/wangEditor.min.js"></script>
+<script src="js/schedule.js"></script>
+<script src="js/liaotian.js"></script>
+<script src="js/fuwenben.js"></script>
+</head>
+<body>
+	
+
+	<!-- 大窗口 -->
+	<div id="window">
+		<div class="head"></div>
+		<div>
+			<div class="record">
+				<!-- 消息框 -->
+				<div class="list">
+                	<table cellspacing="5">
+                    	
+                        
+                    </table>
+				</div>
+                <!--消息列表结束，编辑器，文本编辑器-->
+				<div class="send" id="send">
+                	<!--菜单栏-->
+                	<div id="div1" class="toolbar"></div>
+    				<!--可使用 min-height 实现编辑区域自动增加高度-->
+    				<div id="div2" class="text"> 	
+    				</div>
+					<!--发送关闭-->
+                    <div class="send_btn">
+                    	<input type="button" value="关闭"/>
+                    	<input type="button" value="发送" onclick="sendMessage()"/>
+                    </div>
+                    <!--历史记录按钮-->
+                    <div class="history_btn" onclick="showHistory()"></div>
+                </div>
+                
+			</div>
+			<!-- 聊天历史 -->
+			<div class="history">
+				<!-- 记录列表 -->
+				<div class="history_list">
+					<ul>
+			
+						<li class='green'>
+							<div>三狗 &nbsp;
+							<span>2017-5-8</span></div>
+							<div>你好啊</div>
+						</li>
+						<li class='blue'>
+							<div>二狗 &nbsp;
+							<span>2017-5-8</span></div>
+							<div>你好啊</div>
+						</li>
+					</ul>
+				</div>
+				<!-- 搜索和时间寻找 -->
+				<div  class="time_page">
+					<div class="page">
+						<div class='shouye' onclick='historyAjax(2)'></div>
+						<div class='shangyiye' onclick='historyAjax(1)'></div>
+						<div class='xiayiye' onclick='historyAjax(3)'></div>
+						<div class='weiye' onclick='historyAjax(4)'></div>
+					</div>
+					<div class="time">
+						<div class="shijian" style="width:60px;">2018-5-14</div>
+						<div id="rili"  class="rili" onclick="boxshow()">
+							<div id='schedule-box' class="boxshaw"></div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+//加载传递过来的参数，进行解析
+var paramurl  =location.search.substring(1);
+var params = paramurl.split("&");
+
+var sendId = params[0].split("=")[1];
+var recId = params[1].split("=")[1];
+var touxiang = params[2].split("=")[1];
+var websocket = null;
+//判断当前浏览器是否支持WebSocket
+if ('WebSocket' in window) {
+	var local = "ws://localhost:8080/sc1803chat/call/"+sendId+"/"+recId;
+	websocket = new WebSocket(local);
+} else {
+	alert('当前浏览器 Not support websocket')
+}
+
+//连接发生错误的回调方法
+websocket.onerror = function() {
+	
+};
+
+//连接成功建立的回调方法
+websocket.onopen = function() {
+	
+}
+
+//接收到消息的回调方法
+websocket.onmessage = function(event) {
+//把后台返回的json转换然后处理
+/**
+ * <td>img</td><td>div内容div</td><td></td>
+ */
+var result = $.parseJSON(event.data);
+var str = "<tr><td valign='top' width='5%'>";
+str += "<img src='"+result.user.headImg+"' class='headimg'/></td>";
+str += "<td align='left'><div  class='fmessage'>";
+str += result.message+ "</div></td>";
+str += "<td width='5%'></td></tr>";
+$("table").append(str);
+//让滚动条到底部
+$('.list').scrollTop($('.list').prop("scrollHeight"),300);
+
+}
+
+//连接关闭的回调方法
+websocket.onclose = function() {
+	
+}
+
+//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+window.onbeforeunload = function() {
+	websocket.close();
+}
+
+
+	
+
+//发送消息
+function sendMessage() {
+	//聊天记录测试
+	var str = "<tr><td></td>";
+	str+="<td align='right'>";
+	str+="<div  class='umessage'>";
+	str+=$("#div2 .w-e-text").html() + "</div></td>";
+	str+="<td valign='top' width='5%' align='right'><img src='"+touxiang+"' class='headimg'/></td></tr>";
+	$("table").append(str);
+	/*历史记录测试
+	var str1="<li class='blue'><div>laowang &nbsp;<span>13:02:19</span></div>";
+	str1+="<div>"+$("#div2 .w-e-text").html()+"</div></li>";
+	$(".history_list ul").append(str1);*/
+	
+	//让滚动条到底部
+	$('.list').scrollTop($('.list').prop("scrollHeight"),300);
+	//调用websocket的send发送到服务端
+	websocket.send($("#div2 .w-e-text").html());
+	//清空输入框的内容
+	$("#div2 .w-e-text").html("");
+}
+</script>
+
