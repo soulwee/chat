@@ -68,7 +68,7 @@ public class GroupServlet extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//hhhhhhhhhh
 	}
 	//根据分组id得到好友的分组信息
 	private void loadGroupFriend() {

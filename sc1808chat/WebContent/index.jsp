@@ -36,6 +36,7 @@
 			<div class="close_search">✖</div>
 		</div>
 		<script>
+            //好像少了什么
 			function searchFriend(val){
 				if(val==""){
 					init();
